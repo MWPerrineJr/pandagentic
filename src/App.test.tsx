@@ -2,6 +2,7 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import App from "./App";
+import { dashboards } from "@/data/site";
 
 function renderAt(path: string) {
   window.history.pushState({}, "", path);
@@ -15,6 +16,7 @@ describe("application routes", () => {
     ["/mission", "Why Pandagentic exists"],
     ["/experience", "Career history"],
     ["/projects", "Work in the open, and work we do"],
+    ["/dashboard", "Live dashboards"],
     ["/contact", "Let’s talk about the work"],
   ])("renders %s", (path, heading) => {
     renderAt(path);
@@ -65,5 +67,20 @@ describe("navigation and contact", () => {
       "href",
       "https://huggingface.co/spaces/mestico01/my_twin",
     );
+  });
+
+  it("shows both Streamlit dashboards with live links", () => {
+    renderAt("/dashboard");
+
+    for (const item of dashboards) {
+      expect(screen.getByRole("heading", { level: 2, name: item.title })).toBeInTheDocument();
+      const liveLinks = screen
+        .getAllByRole("link", { name: /open live dashboard/i })
+        .filter((link) => link.getAttribute("href") === item.href);
+      expect(liveLinks.length).toBeGreaterThan(0);
+      for (const link of liveLinks) {
+        expect(link).toHaveAttribute("target", "_blank");
+      }
+    }
   });
 });

@@ -54,6 +54,7 @@ export const nav = [
   { label: "Mission", href: "/mission" },
   { label: "Experience", href: "/experience" },
   { label: "Projects", href: "/projects" },
+  { label: "Dashboard", href: "/dashboard" },
   { label: "Contact", href: "/contact" },
 ] as const;
 
@@ -62,7 +63,91 @@ export const links = {
   github: "https://github.com/MWPerrineJr/completed-projects",
   huggingface: "https://huggingface.co/spaces/mestico01/my_twin",
   assistant: "https://mestico01-my-twin.hf.space",
+  dashboard: "https://mwperrinejr-completed--online-retailer-sales-analysisapp-092rwf.streamlit.app/",
+  dashboardSource:
+    "https://github.com/MWPerrineJr/completed-projects/tree/main/online-retailer-sales-analysis",
+  churnDashboard: "https://completed-projects-i5vraxfwegymcjdyewtywt.streamlit.app/",
+  churnDashboardSource: "https://github.com/MWPerrineJr/completed-projects/tree/main/ChurnAnalysis",
 };
+
+export const dashboards = [
+  {
+    id: "sales",
+    title: "Sales Analysis Dashboard",
+    subtitle: "European product orders, 2019–2020 — EDA, net-sales regressors, and monthly forecasts.",
+    description:
+      "Filter the book, inspect distributions, score net-sales regressors, and compare monthly forecasts — then open the live app to use it.",
+    href: links.dashboard,
+    embedHref: `${links.dashboard}?embed=true`,
+    sourceHref: links.dashboardSource,
+    kpis: [
+      { label: "Orders", value: "1,000" },
+      { label: "Total net sales", value: "€18,992,428" },
+      { label: "Avg net sales / order", value: "€18,992" },
+      { label: "Blended margin", value: "16.8%" },
+    ],
+    tabs: ["Overview & EDA", "Regression Models", "Time Series Forecast"],
+    filters: ["Country", "Category", "Sales manager", "Device type"],
+    filterExtra: "2019-01 — 2020-12",
+    filterCaption: "1,000 of 1,000 orders",
+    highlights: [
+      {
+        title: "Overview & EDA",
+        description:
+          "Filter 1,000 orders by country, category, manager, device, and date. Histograms, sales vs. COGS by country, and period-over-period change.",
+      },
+      {
+        title: "Regression Models",
+        description:
+          "Predict net sales from categorical attributes only — Linear, Huber, and XGBoost — with actual-vs-predicted plots and holdout metrics.",
+      },
+      {
+        title: "Time Series Forecast",
+        description:
+          "Monthly net-sales forecasts from irregular order dates, comparing a manual ARIMA spec with auto_arima on a holdout window.",
+      },
+    ],
+  },
+  {
+    id: "churn",
+    title: "Customer Churn Dashboard",
+    subtitle: "Bank customer churn — EDA, an ANN classifier, and a single-customer predictor.",
+    description:
+      "Explore 10,000 bank customers, review a persisted ANN on held-out test performance, and score one customer at a time.",
+    href: links.churnDashboard,
+    embedHref: `${links.churnDashboard}?embed=true`,
+    sourceHref: links.churnDashboardSource,
+    kpis: [
+      { label: "Customers", value: "10,000" },
+      { label: "Churn rate", value: "20.4%" },
+      { label: "Avg balance", value: "€76,486" },
+      { label: "Avg credit score", value: "651" },
+    ],
+    tabs: ["Overview & EDA", "Model Performance", "Predict a Customer"],
+    filters: ["Geography", "Gender", "Age range", "Active member"],
+    filterExtra: "All ages",
+    filterCaption: "10,000 of 10,000 customers",
+    highlights: [
+      {
+        title: "Overview & EDA",
+        description:
+          "Filter by geography, gender, age, and active status. Credit-score distributions, salary by gender, balance by churn, and churn rate by country.",
+      },
+      {
+        title: "Model Performance",
+        description:
+          "A 6-6-1 ANN trained once on the full set. Test accuracy 85.8%, ROC AUC 0.864, with a live threshold slider on the confusion matrix.",
+      },
+      {
+        title: "Predict a Customer",
+        description:
+          "Interactive form that mirrors the notebook’s manual prediction cell — credit score, geography, products, and a churn probability.",
+      },
+    ],
+  },
+] as const;
+
+export type ShowcaseDashboard = (typeof dashboards)[number];
 
 export const services = [
   {
@@ -254,6 +339,22 @@ export const experience: ExperienceItem[] = [
 ];
 
 export const featuredProjects = [
+  {
+    title: "Sales Analysis Dashboard",
+    kind: "Streamlit",
+    description:
+      "Interactive EDA, net-sales regressors, and monthly forecasts on 1,000 European product orders from 2019–2020. Open the live app, or see the preview on the Dashboard tab.",
+    href: links.dashboard,
+    cta: "Open live dashboard",
+  },
+  {
+    title: "Customer Churn Dashboard",
+    kind: "Streamlit",
+    description:
+      "Bank-customer EDA, a persisted ANN classifier (85.8% test accuracy), and a single-customer predictor. Open the live app, or see the preview on the Dashboard tab.",
+    href: links.churnDashboard,
+    cta: "Open live dashboard",
+  },
   {
     title: "my_twin",
     kind: "Agent space",

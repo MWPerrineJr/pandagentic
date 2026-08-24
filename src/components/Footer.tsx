@@ -51,6 +51,9 @@ export function Footer() {
           <Link className="text-muted-foreground hover:text-primary" to="/projects">
             Projects
           </Link>
+          <Link className="text-muted-foreground hover:text-primary" to="/dashboard">
+            Dashboard
+          </Link>
           <Link className="text-muted-foreground hover:text-primary" to="/contact">
             Contact
           </Link>

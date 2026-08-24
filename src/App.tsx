@@ -4,6 +4,7 @@ import Home from "@/pages/Home";
 import About from "@/pages/About";
 import Experience from "@/pages/Experience";
 import Projects from "@/pages/Projects";
+import Dashboard from "@/pages/Dashboard";
 import Contact from "@/pages/Contact";
 import Mission from "@/pages/Mission";
 import NotFound from "@/pages/NotFound";
@@ -18,6 +19,7 @@ function App() {
           <Route path="/mission" element={<Mission />} />
           <Route path="/experience" element={<Experience />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Route>

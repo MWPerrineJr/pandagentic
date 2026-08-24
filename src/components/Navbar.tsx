@@ -22,7 +22,7 @@ export function Navbar() {
           <span className="text-lg font-semibold tracking-tight">{company.name}</span>
         </Link>
 
-        <nav aria-label="Primary navigation" className="hidden items-center gap-1 md:flex">
+        <nav aria-label="Primary navigation" className="hidden items-center gap-1 lg:flex">
           {nav.map((item) => (
             <NavLink
               key={item.href}
@@ -46,7 +46,7 @@ export function Navbar() {
         <Button
           variant="ghost"
           size="icon"
-          className="md:hidden"
+          className="lg:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           aria-controls="mobile-navigation"
@@ -57,7 +57,7 @@ export function Navbar() {
       </div>
 
       {open && (
-        <div className="border-t border-border/70 bg-background/95 md:hidden">
+        <div className="border-t border-border/70 bg-background/95 lg:hidden">
           <nav
             id="mobile-navigation"
             aria-label="Mobile navigation"
