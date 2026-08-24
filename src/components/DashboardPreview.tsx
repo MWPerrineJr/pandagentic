@@ -191,6 +191,78 @@ function BalanceBars() {
   );
 }
 
+function TypeVolumeBars() {
+  const bars = [
+    { label: "CASH_IN", value: 52, color: "#636EFA" },
+    { label: "CASH_OUT", value: 70, color: "#EF553B" },
+    { label: "DEBIT", value: 12, color: "#00CC96" },
+    { label: "PAYMENT", value: 64, color: "#AB63FA" },
+    { label: "TRANSFER", value: 28, color: "#FFA15A" },
+  ];
+
+  return (
+    <div className="rounded-md border border-slate-200 bg-white p-3">
+      <p className="text-[11px] font-medium text-slate-700">Transaction volume by type</p>
+      <svg viewBox="0 0 220 110" className="mt-2 h-28 w-full" aria-hidden="true">
+        <line x1="24" y1="88" x2="210" y2="88" stroke="#E5E7EB" />
+        {bars.map((bar, index) => {
+          const height = bar.value;
+          const x = 32 + index * 36;
+          return (
+            <g key={bar.label}>
+              <rect x={x} y={88 - height} width="22" height={height} fill={bar.color} rx="2" />
+              <text x={x + 11} y="102" textAnchor="middle" fontSize="7" fill="#64748B">
+                {bar.label.replace("_", "\n")}
+              </text>
+            </g>
+          );
+        })}
+      </svg>
+    </div>
+  );
+}
+
+function FraudRateBars() {
+  const bars = [
+    { label: "TRANSFER", value: 76, color: "#EF553B" },
+    { label: "CASH_OUT", value: 48, color: "#FFA15A" },
+    { label: "CASH_IN", value: 4, color: "#636EFA" },
+    { label: "DEBIT", value: 3, color: "#00CC96" },
+    { label: "PAYMENT", value: 2, color: "#AB63FA" },
+  ];
+
+  return (
+    <div className="rounded-md border border-slate-200 bg-white p-3">
+      <p className="text-[11px] font-medium text-slate-700">Fraud rate by transaction type</p>
+      <svg viewBox="0 0 220 110" className="mt-2 h-28 w-full" aria-hidden="true">
+        <line x1="24" y1="88" x2="210" y2="88" stroke="#E5E7EB" />
+        {bars.map((bar, index) => {
+          const x = 32 + index * 36;
+          return (
+            <g key={bar.label}>
+              <rect x={x} y={88 - bar.value} width="22" height={bar.value} fill={bar.color} rx="2" />
+            </g>
+          );
+        })}
+      </svg>
+    </div>
+  );
+}
+
+function FraudTimeChart() {
+  const path = "M16 70 C 36 68, 52 52, 70 48 S 108 62, 128 40 S 168 28, 204 22";
+
+  return (
+    <div className="rounded-md border border-slate-200 bg-white p-3">
+      <p className="text-[11px] font-medium text-slate-700">Fraud count per time step</p>
+      <svg viewBox="0 0 220 110" className="mt-2 h-28 w-full" aria-hidden="true">
+        <line x1="16" y1="92" x2="208" y2="92" stroke="#E5E7EB" />
+        <path d={path} fill="none" stroke="#EF553B" strokeWidth="2.4" />
+      </svg>
+    </div>
+  );
+}
+
 function DashboardCharts({ dashboard }: { dashboard: ShowcaseDashboard }) {
   if (dashboard.id === "churn") {
     const creditBars = [4, 8, 14, 22, 34, 48, 62, 70, 66, 54, 40, 28, 18, 12, 8, 5, 3, 2];
@@ -200,6 +272,18 @@ function DashboardCharts({ dashboard }: { dashboard: ShowcaseDashboard }) {
         <BoxPlotChart />
         <BalanceBars />
         <GeographyBars />
+      </>
+    );
+  }
+
+  if (dashboard.id === "fraud") {
+    const amountBars = [4, 10, 22, 40, 62, 70, 54, 36, 22, 14, 10, 8, 6, 5, 4, 3, 2, 2];
+    return (
+      <>
+        <TypeVolumeBars />
+        <FraudRateBars />
+        <Histogram title="Log(amount + 1)" bars={amountBars} color="#AB63FA" xLabel="log(amount + 1)" />
+        <FraudTimeChart />
       </>
     );
   }

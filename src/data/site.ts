@@ -68,6 +68,8 @@ export const links = {
     "https://github.com/MWPerrineJr/completed-projects/tree/main/online-retailer-sales-analysis",
   churnDashboard: "https://completed-projects-i5vraxfwegymcjdyewtywt.streamlit.app/",
   churnDashboardSource: "https://github.com/MWPerrineJr/completed-projects/tree/main/ChurnAnalysis",
+  fraudDashboard: "https://mwperrinejr-completed-projects-frauddetectionapp-raaknk.streamlit.app/",
+  fraudDashboardSource: "https://github.com/MWPerrineJr/completed-projects/tree/main/FraudDetection",
 };
 
 export const dashboards = [
@@ -142,6 +144,44 @@ export const dashboards = [
         title: "Predict a Customer",
         description:
           "Interactive form that mirrors the notebook’s manual prediction cell — credit score, geography, products, and a churn probability.",
+      },
+    ],
+  },
+  {
+    id: "fraud",
+    title: "Fraud Detection Dashboard",
+    subtitle:
+      "Mobile-money transaction fraud — EDA on 6.36M transactions, a logistic regression classifier, and a transaction scorer.",
+    description:
+      "Explore 6.36 million mobile-money transactions, review a balanced logistic regression on a held-out test set, and score a single transfer.",
+    href: links.fraudDashboard,
+    embedHref: `${links.fraudDashboard}?embed=true`,
+    sourceHref: links.fraudDashboardSource,
+    kpis: [
+      { label: "Total transactions", value: "6,362,620" },
+      { label: "Fraud rate", value: "0.129%" },
+      { label: "Fraudulent transactions", value: "8,213" },
+      { label: "Flagged by the source system", value: "16" },
+    ],
+    tabs: ["Overview & EDA", "Model Performance", "Predict a Transaction"],
+    filters: ["CASH_IN", "CASH_OUT", "DEBIT", "PAYMENT", "TRANSFER"],
+    filterExtra: "EDA filter",
+    filterCaption: "Applies to Overview & EDA only",
+    highlights: [
+      {
+        title: "Overview & EDA",
+        description:
+          "Exact aggregates over 6.36M rows: volume and fraud rate by type, amount distributions, frauds over time, and a zero-balance-after-transfer signature.",
+      },
+      {
+        title: "Model Performance",
+        description:
+          "Logistic regression with class_weight='balanced'. Test recall 93.6% and ROC AUC 0.989 — accuracy is 94.7%, but precision/recall are the metrics that matter at 0.13% fraud.",
+      },
+      {
+        title: "Predict a Transaction",
+        description:
+          "Score a single mobile-money transfer with the same fields as the standalone form, plus a live decision threshold.",
       },
     ],
   },
@@ -353,6 +393,14 @@ export const featuredProjects = [
     description:
       "Bank-customer EDA, a persisted ANN classifier (85.8% test accuracy), and a single-customer predictor. Open the live app, or see the preview on the Dashboard tab.",
     href: links.churnDashboard,
+    cta: "Open live dashboard",
+  },
+  {
+    title: "Fraud Detection Dashboard",
+    kind: "Streamlit",
+    description:
+      "EDA on 6.36M mobile-money transactions, a logistic regression classifier (93.6% recall, ROC AUC 0.989), and a single-transaction scorer. Open the live app, or see the preview on the Dashboard tab.",
+    href: links.fraudDashboard,
     cta: "Open live dashboard",
   },
   {

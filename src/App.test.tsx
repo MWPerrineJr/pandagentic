@@ -69,7 +69,7 @@ describe("navigation and contact", () => {
     );
   });
 
-  it("shows both Streamlit dashboards with live links", () => {
+  it("shows each Streamlit dashboard with a live link", () => {
     renderAt("/dashboard");
 
     for (const item of dashboards) {
