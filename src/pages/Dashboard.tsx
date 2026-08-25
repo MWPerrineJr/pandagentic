@@ -11,8 +11,8 @@ export default function Dashboard() {
         <p className="text-sm font-medium uppercase tracking-[0.2em] text-primary">Dashboard</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight">Live dashboards</h1>
         <p className="mt-4 text-muted-foreground">
-          Three public Streamlit apps from completed data-science work. Sales, churn, and fraud detection
-          sit in that order below.
+          Four public Streamlit apps from completed data-science work. Sales, churn, fraud detection,
+          and stock analysis sit in that order below.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
           {dashboards.map((item) => (

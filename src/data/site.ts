@@ -70,6 +70,8 @@ export const links = {
   churnDashboardSource: "https://github.com/MWPerrineJr/completed-projects/tree/main/ChurnAnalysis",
   fraudDashboard: "https://mwperrinejr-completed-projects-frauddetectionapp-raaknk.streamlit.app/",
   fraudDashboardSource: "https://github.com/MWPerrineJr/completed-projects/tree/main/FraudDetection",
+  stockDashboard: "https://completed-projects-d4kxlppp8zwtqry6lpaa8h.streamlit.app/",
+  stockDashboardSource: "https://github.com/MWPerrineJr/completed-projects/tree/main/StockAnalysis",
 };
 
 export const dashboards = [
@@ -182,6 +184,44 @@ export const dashboards = [
         title: "Predict a Transaction",
         description:
           "Score a single mobile-money transfer with the same fields as the standalone form, plus a live decision threshold.",
+      },
+    ],
+  },
+  {
+    id: "stocks",
+    title: "Stock Analysis Dashboard",
+    subtitle:
+      "Technicals and a five-name tech book for AAPL, MSFT, GOOGL, NVDA, and TSLA. Every number is in-sample — it describes this window, not a forecast.",
+    description:
+      "Compare prices, SMA crosses, Bollinger bands, and MACD across five names, then rebuild an inverse-volatility book and stress it with Monte Carlo.",
+    href: links.stockDashboard,
+    embedHref: `${links.stockDashboard}?embed=true`,
+    sourceHref: links.stockDashboardSource,
+    kpis: [
+      { label: "Universe", value: "5 names" },
+      { label: "Window start", value: "Jan 2020" },
+      { label: "Random books", value: "25,000" },
+      { label: "Bootstrap paths", value: "5,000" },
+    ],
+    tabs: ["Price", "Moving averages", "Bollinger bands", "MACD", "Weights", "Monte Carlo"],
+    filters: ["AAPL", "MSFT", "GOOGL", "NVDA", "TSLA"],
+    filterExtra: "Risk-free: current T-bill",
+    filterCaption: "Prices from Yahoo Finance starting 2020-01-01",
+    highlights: [
+      {
+        title: "Price & technicals",
+        description:
+          "Adjusted close vs growth of $1, 10/50-day SMA golden and death crosses, 20-day Bollinger bands, and MACD (12, 26, 9) plotted side by side.",
+      },
+      {
+        title: "Portfolio weights",
+        description:
+          "Equal-weight, inverse-volatility, and inverse-variance books. Capital weights and risk contribution are shown separately so NVDA and TSLA do not hide in dollar shares.",
+      },
+      {
+        title: "Monte Carlo",
+        description:
+          "25,000 long-only random books for the feasible set, plus 5,000 one-year bootstrap paths on the inverse-volatility rule from a $10,000 start.",
       },
     ],
   },
@@ -401,6 +441,14 @@ export const featuredProjects = [
     description:
       "EDA on 6.36M mobile-money transactions, a logistic regression classifier (93.6% recall, ROC AUC 0.989), and a single-transaction scorer. Open the live app, or see the preview on the Dashboard tab.",
     href: links.fraudDashboard,
+    cta: "Open live dashboard",
+  },
+  {
+    title: "Stock Analysis Dashboard",
+    kind: "Streamlit",
+    description:
+      "Technicals and an inverse-volatility book on AAPL, MSFT, GOOGL, NVDA, and TSLA, plus a Monte Carlo stress test. Open the live app, or see the preview on the Dashboard tab.",
+    href: links.stockDashboard,
     cta: "Open live dashboard",
   },
   {

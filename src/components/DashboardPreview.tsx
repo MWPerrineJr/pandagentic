@@ -263,6 +263,111 @@ function FraudTimeChart() {
   );
 }
 
+function PriceLines() {
+  const series = [
+    { d: "M16 78 C 40 70, 70 62, 100 54 S 160 36, 204 22", color: "#F87171" },
+    { d: "M16 72 C 48 68, 80 58, 110 50 S 166 40, 204 30", color: "#FBBF24" },
+    { d: "M16 68 C 50 64, 84 56, 120 48 S 170 42, 204 38", color: "#60A5FA" },
+    { d: "M16 64 C 52 60, 88 54, 124 50 S 172 46, 204 44", color: "#34D399" },
+    { d: "M16 60 C 54 58, 90 52, 128 48 S 174 46, 204 42", color: "#A78BFA" },
+  ];
+
+  return (
+    <div className="rounded-md border border-slate-200 bg-white p-3">
+      <p className="text-[11px] font-medium text-slate-700">Growth of $1 at the start of the window</p>
+      <svg viewBox="0 0 220 110" className="mt-2 h-28 w-full" aria-hidden="true">
+        <line x1="16" y1="92" x2="208" y2="92" stroke="#E5E7EB" />
+        {series.map((line) => (
+          <path key={line.color} d={line.d} fill="none" stroke={line.color} strokeWidth="2" />
+        ))}
+      </svg>
+      <div className="mt-1 flex flex-wrap gap-2 text-[9px] text-slate-500">
+        <span className="inline-flex items-center gap-1">
+          <span className="h-1.5 w-3 rounded-full bg-[#60A5FA]" /> AAPL
+        </span>
+        <span className="inline-flex items-center gap-1">
+          <span className="h-1.5 w-3 rounded-full bg-[#34D399]" /> MSFT
+        </span>
+        <span className="inline-flex items-center gap-1">
+          <span className="h-1.5 w-3 rounded-full bg-[#A78BFA]" /> GOOGL
+        </span>
+        <span className="inline-flex items-center gap-1">
+          <span className="h-1.5 w-3 rounded-full bg-[#F87171]" /> NVDA
+        </span>
+        <span className="inline-flex items-center gap-1">
+          <span className="h-1.5 w-3 rounded-full bg-[#FBBF24]" /> TSLA
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function SmaChart() {
+  return (
+    <div className="rounded-md border border-slate-200 bg-white p-3">
+      <p className="text-[11px] font-medium text-slate-700">10-day vs 50-day SMA</p>
+      <svg viewBox="0 0 220 110" className="mt-2 h-28 w-full" aria-hidden="true">
+        <line x1="16" y1="92" x2="208" y2="92" stroke="#E5E7EB" />
+        <path d="M16 70 C 50 66, 80 58, 110 50 S 160 44, 204 36" fill="none" stroke="#94A3B8" strokeWidth="1.4" />
+        <path d="M16 74 C 52 68, 86 60, 118 52 S 164 46, 204 40" fill="none" stroke="#FB923C" strokeWidth="2" />
+        <path d="M16 78 C 56 72, 92 64, 124 56 S 168 50, 204 46" fill="none" stroke="#A78BFA" strokeWidth="2" />
+        <polygon points="92,48 96,56 88,56" fill="#34D399" />
+        <polygon points="158,50 154,42 162,42" fill="#F87171" />
+      </svg>
+    </div>
+  );
+}
+
+function BollingerChart() {
+  return (
+    <div className="rounded-md border border-slate-200 bg-white p-3">
+      <p className="text-[11px] font-medium text-slate-700">Bollinger bands (20-day, 2σ)</p>
+      <svg viewBox="0 0 220 110" className="mt-2 h-28 w-full" aria-hidden="true">
+        <line x1="16" y1="92" x2="208" y2="92" stroke="#E5E7EB" />
+        <path d="M16 42 C 70 28, 130 36, 204 24" fill="none" stroke="#FB923C" strokeWidth="1" />
+        <path d="M16 82 C 70 74, 130 70, 204 64" fill="none" stroke="#A78BFA" strokeWidth="1" />
+        <path d="M16 62 C 70 52, 130 54, 204 44" fill="none" stroke="#60A5FA" strokeWidth="1.5" />
+        <path d="M16 58 C 70 48, 130 50, 204 40" fill="none" stroke="#64748B" strokeWidth="1.4" />
+      </svg>
+    </div>
+  );
+}
+
+function FrontierChart() {
+  const dots = [
+    [40, 70],
+    [52, 64],
+    [64, 58],
+    [76, 54],
+    [88, 50],
+    [100, 48],
+    [112, 46],
+    [124, 52],
+    [136, 58],
+    [148, 62],
+    [58, 72],
+    [90, 66],
+    [118, 60],
+    [70, 48],
+    [96, 42],
+  ];
+
+  return (
+    <div className="rounded-md border border-slate-200 bg-white p-3">
+      <p className="text-[11px] font-medium text-slate-700">Feasible set (25,000 long-only books)</p>
+      <svg viewBox="0 0 220 110" className="mt-2 h-28 w-full" aria-hidden="true">
+        <line x1="24" y1="96" x2="210" y2="96" stroke="#E5E7EB" />
+        <line x1="24" y1="12" x2="24" y2="96" stroke="#E5E7EB" />
+        {dots.map(([x, y]) => (
+          <circle key={`${x}-${y}`} cx={x} cy={y} r="3" fill="#34D399" opacity="0.7" />
+        ))}
+        <circle cx="96" cy="42" r="5" fill="#FBBF24" />
+        <circle cx="70" cy="48" r="5" fill="#60A5FA" />
+      </svg>
+    </div>
+  );
+}
+
 function DashboardCharts({ dashboard }: { dashboard: ShowcaseDashboard }) {
   if (dashboard.id === "churn") {
     const creditBars = [4, 8, 14, 22, 34, 48, 62, 70, 66, 54, 40, 28, 18, 12, 8, 5, 3, 2];
@@ -284,6 +389,17 @@ function DashboardCharts({ dashboard }: { dashboard: ShowcaseDashboard }) {
         <FraudRateBars />
         <Histogram title="Log(amount + 1)" bars={amountBars} color="#AB63FA" xLabel="log(amount + 1)" />
         <FraudTimeChart />
+      </>
+    );
+  }
+
+  if (dashboard.id === "stocks") {
+    return (
+      <>
+        <PriceLines />
+        <SmaChart />
+        <BollingerChart />
+        <FrontierChart />
       </>
     );
   }
@@ -329,7 +445,7 @@ function DashboardVisual({ dashboard }: { dashboard: ShowcaseDashboard }) {
           ))}
         </div>
 
-        <div className="mt-4 flex gap-4 border-b border-slate-200 text-[11px]">
+        <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 border-b border-slate-200 text-[11px]">
           {dashboard.tabs.map((tab, index) => (
             <span
               key={tab}
