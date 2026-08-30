@@ -2,7 +2,7 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import App from "./App";
-import { dashboards } from "@/data/site";
+import { dashboards, workflows } from "@/data/site";
 
 function renderAt(path: string) {
   window.history.pushState({}, "", path);
@@ -17,6 +17,8 @@ describe("application routes", () => {
     ["/experience", "Career history"],
     ["/projects", "Work in the open, and work we do"],
     ["/dashboard", "Live dashboards"],
+    ["/workflows", "Autonomous workflows"],
+    ["/saas", "SaaS applications"],
     ["/contact", "Let’s talk about the work"],
   ])("renders %s", (path, heading) => {
     renderAt(path);
@@ -81,6 +83,30 @@ describe("navigation and contact", () => {
       for (const link of liveLinks) {
         expect(link).toHaveAttribute("target", "_blank");
       }
+    }
+  });
+
+  it("lists each autonomous n8n workflow", () => {
+    renderAt("/workflows");
+
+    for (const workflow of workflows) {
+      expect(screen.getByRole("heading", { name: workflow.title })).toBeInTheDocument();
+    }
+
+    expect(screen.getByRole("link", { name: /open translation form/i })).toHaveAttribute(
+      "href",
+      "https://mperrine.app.n8n.cloud/form/8634e9aa-4cab-41be-96f4-c08391c66a72",
+    );
+  });
+
+  it("links the SaaS page to The Standing Chair", () => {
+    renderAt("/saas");
+
+    const liveLinks = screen.getAllByRole("link", { name: /open live app/i });
+    expect(liveLinks.length).toBeGreaterThan(0);
+    for (const link of liveLinks) {
+      expect(link).toHaveAttribute("href", "https://thestandingchair.com/");
+      expect(link).toHaveAttribute("target", "_blank");
     }
   });
 });

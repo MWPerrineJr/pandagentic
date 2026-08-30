@@ -1,8 +1,8 @@
 /**
  * Single source of truth for site copy and links.
- * Swap CONTACT_EMAIL when the company inbox is ready.
+ * Company inbox used by the contact form and mailto links.
  */
-export const CONTACT_EMAIL = "hello@pandagentic.com";
+export const CONTACT_EMAIL = "michael@pandagentic.ai";
 
 export const company = {
   name: "Pandagentic",
@@ -55,6 +55,8 @@ export const nav = [
   { label: "Experience", href: "/experience" },
   { label: "Projects", href: "/projects" },
   { label: "Dashboard", href: "/dashboard" },
+  { label: "Workflows", href: "/workflows" },
+  { label: "SaaS", href: "/saas" },
   { label: "Contact", href: "/contact" },
 ] as const;
 
@@ -72,6 +74,8 @@ export const links = {
   fraudDashboardSource: "https://github.com/MWPerrineJr/completed-projects/tree/main/FraudDetection",
   stockDashboard: "https://completed-projects-d4kxlppp8zwtqry6lpaa8h.streamlit.app/",
   stockDashboardSource: "https://github.com/MWPerrineJr/completed-projects/tree/main/StockAnalysis",
+  standingChair: "https://thestandingchair.com/",
+  standingChairDemo: "https://thestandingchair.com/demo",
 };
 
 export const dashboards = [
@@ -228,6 +232,127 @@ export const dashboards = [
 ] as const;
 
 export type ShowcaseDashboard = (typeof dashboards)[number];
+
+export const workflows = [
+  {
+    id: "document-translation",
+    featured: true,
+    title: "Document Translation",
+    href: "https://mperrine.app.n8n.cloud/form/8634e9aa-4cab-41be-96f4-c08391c66a72",
+    description:
+      "Open the n8n form, enter source and target languages, and submit text or a PDF. The workflow extracts the copy, translates it, and emails the result back — no one pastes through a translator by hand.",
+    nodes: ["Form in", "Extract text", "Translate", "Email out"],
+  },
+  {
+    id: "lead-routing",
+    featured: false,
+    title: "AI Lead Qualification and Routing",
+    description:
+      "Capture leads from forms, email, or CRM; enrich company data; score fit and intent; then assign qualified leads to the right salesperson with a personalized briefing.",
+    nodes: ["Form / CRM", "Enrich & score", "Route + brief"],
+  },
+  {
+    id: "invoice-processing",
+    featured: false,
+    title: "Invoice and Receipt Processing",
+    description:
+      "Monitor an inbox or upload folder, extract vendor and payment details using OCR/AI, check for duplicates and anomalies, route exceptions for approval, and sync approved records to accounting software.",
+    nodes: ["Inbox watch", "OCR / AI extract", "Accounting sync"],
+  },
+  {
+    id: "support-triage",
+    featured: false,
+    title: "Customer Support Triage",
+    description:
+      "Classify incoming requests by topic, urgency, sentiment, and customer tier; retrieve relevant account context; draft a response; and escalate sensitive or low-confidence cases to a human.",
+    nodes: ["Inbound request", "Classify + draft", "Human escalate"],
+  },
+  {
+    id: "hr-lifecycle",
+    featured: false,
+    title: "Employee Onboarding and Offboarding",
+    description:
+      "Trigger from HR status changes, create or disable accounts, generate checklists, notify managers, schedule training, collect required documents, and maintain an auditable completion record.",
+    nodes: ["HR status change", "Provision accounts", "Audit trail"],
+  },
+  {
+    id: "meeting-followup",
+    featured: false,
+    title: "Sales Meeting Follow-Up",
+    description:
+      "Process meeting transcripts, extract decisions and action items, update CRM fields, create tasks, draft a personalized follow-up email, and alert account owners about risks or opportunities.",
+    nodes: ["Transcript in", "Extract actions", "CRM + email"],
+  },
+  {
+    id: "kpi-alerts",
+    featured: false,
+    title: "Business KPI and Anomaly Alerts",
+    description:
+      "Pull data from sales, marketing, finance, and operations systems on a schedule; calculate key metrics; detect unusual changes; and send concise explanations and recommended actions to decision-makers.",
+    nodes: ["Scheduled pull", "Detect anomaly", "Alert + next step"],
+  },
+] as const;
+
+export const saasProjects = [
+  {
+    id: "standing-chair",
+    title: "The Standing Chair",
+    kind: "Beauty & wellness booking",
+    href: links.standingChair,
+    demoHref: links.standingChairDemo,
+    embedHref: links.standingChair,
+    tagline: "Beauty and wellness booking, simplified.",
+    description:
+      "A marketplace for studios, salons, and spas. Clients find a service and book in under a minute. Shop owners get a public page, prepaid appointments, post-visit surveys, and AI-backed analytics.",
+    kpis: [
+      { label: "Listing & bookings", value: "Free" },
+      { label: "Book a visit", value: "< 1 min" },
+      { label: "Paid add-on", value: "Analytics" },
+    ],
+    categories: [
+      "Hair & Barber",
+      "Nails",
+      "Waxing",
+      "Makeup",
+      "Massage",
+      "Skincare & Facials",
+      "Brows & Lashes",
+      "Spa & Wellness",
+    ],
+    steps: [
+      {
+        title: "Publish your shop page",
+        description: "Services, prices, weekly hours, and a shareable booking link — no separate website required.",
+      },
+      {
+        title: "Take bookings around the clock",
+        description: "Clients pick a service, a provider, and a time that fits real hours. Double bookings are blocked.",
+      },
+      {
+        title: "Get paid up front",
+        description: "Full prepayment or a deposit. Payouts land in the shop’s connected account.",
+      },
+      {
+        title: "Automatic post-visit surveys",
+        description: "Happy clients are pointed to Google reviews; unhappy ones stay private with the shop.",
+      },
+      {
+        title: "Feedback Intelligence",
+        description: "Each response is scored for sentiment, emotion, and urgency, with a suggested reply.",
+      },
+      {
+        title: "Business analytics",
+        description: "Revenue, bookings, peak hours, provider sales, and survey ratings — daily, weekly, or monthly.",
+      },
+    ],
+    plans: [
+      { name: "Free", price: "$0 / month", detail: "Shop page, booking link, services, hours, and appointments." },
+      { name: "Solo", price: "$120 / month", detail: "1 provider. $1,000 / year. 1-month free trial." },
+      { name: "Team", price: "$200 / month", detail: "2 providers. $2,000 / year. 1-month free trial." },
+      { name: "Enterprise", price: "$250 / month", detail: "3 or more providers. $2,500 / year. 1-month free trial." },
+    ],
+  },
+] as const;
 
 export const services = [
   {
@@ -450,6 +575,14 @@ export const featuredProjects = [
       "Technicals and an inverse-volatility book on AAPL, MSFT, GOOGL, NVDA, and TSLA, plus a Monte Carlo stress test. Open the live app, or see the preview on the Dashboard tab.",
     href: links.stockDashboard,
     cta: "Open live dashboard",
+  },
+  {
+    title: "The Standing Chair",
+    kind: "SaaS",
+    description:
+      "Beauty and wellness booking marketplace: shop pages, prepaid appointments, surveys, and AI-backed analytics. Open the live app, or see the demo on the SaaS tab.",
+    href: links.standingChair,
+    cta: "Open live app",
   },
   {
     title: "my_twin",

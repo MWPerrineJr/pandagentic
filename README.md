@@ -24,7 +24,7 @@ npm run test
 
 All public copy, links, and the contact address live in [`src/data/site.ts`](src/data/site.ts).
 
-When the company inbox is ready, change `CONTACT_EMAIL`. The contact form uses `mailto:` with that address until you wire Formspree or another backend.
+The contact form uses `mailto:` with `CONTACT_EMAIL` until you wire Formspree or another backend.
 
 The source logo is [`public/logo.png`](public/logo.png). The site serves optimized WebP versions generated from that source.
 

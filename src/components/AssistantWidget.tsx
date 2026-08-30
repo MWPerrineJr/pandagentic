@@ -17,7 +17,7 @@ export function AssistantWidget() {
             <div>
               <p className="font-semibold">Digital assistant</p>
               <p className="mt-1 text-xs text-muted-foreground">
-                Ask about Michael, his projects, or Pandagentic.
+                Ask about Michael from his LinkedIn profile, projects, or Pandagentic.
               </p>
             </div>
             <Button
