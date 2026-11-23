@@ -2,7 +2,7 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import App from "./App";
-import { dashboards, workflows } from "@/data/site";
+import { dashboards, rag, workflows } from "@/data/site";
 
 function renderAt(path: string) {
   window.history.pushState({}, "", path);
@@ -17,6 +17,7 @@ describe("application routes", () => {
     ["/experience", "Career history"],
     ["/projects", "Work in the open, and work we do"],
     ["/dashboard", "Live dashboards"],
+    ["/rag", "Answers grounded in your documents"],
     ["/workflows", "Autonomous workflows"],
     ["/saas", "SaaS applications"],
     ["/contact", "Let’s talk about the work"],
@@ -84,6 +85,27 @@ describe("navigation and contact", () => {
         expect(link).toHaveAttribute("target", "_blank");
       }
     }
+  });
+
+  it("shows the RAG assistant with live and source links", async () => {
+    const user = userEvent.setup();
+    renderAt("/rag");
+
+    expect(screen.getByRole("heading", { level: 2, name: rag.title })).toBeInTheDocument();
+    for (const link of screen.getAllByRole("link", { name: /open live assistant/i })) {
+      expect(link).toHaveAttribute("href", "https://data-science-library.streamlit.app/");
+      expect(link).toHaveAttribute("target", "_blank");
+    }
+    expect(screen.getByRole("link", { name: /view source/i })).toHaveAttribute(
+      "href",
+      "https://github.com/MWPerrineJr/datascience-rag",
+    );
+
+    await user.click(screen.getByRole("button", { name: /try it here/i }));
+    expect(screen.getByTitle(rag.title)).toHaveAttribute(
+      "src",
+      "https://data-science-library.streamlit.app/?embed=true",
+    );
   });
 
   it("lists each autonomous n8n workflow", () => {

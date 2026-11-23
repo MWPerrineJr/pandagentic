@@ -5,6 +5,7 @@ import About from "@/pages/About";
 import Experience from "@/pages/Experience";
 import Projects from "@/pages/Projects";
 import Dashboard from "@/pages/Dashboard";
+import Rag from "@/pages/Rag";
 import Workflows from "@/pages/Workflows";
 import SaaS from "@/pages/SaaS";
 import Contact from "@/pages/Contact";
@@ -22,6 +23,7 @@ function App() {
           <Route path="/experience" element={<Experience />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/rag" element={<Rag />} />
           <Route path="/workflows" element={<Workflows />} />
           <Route path="/saas" element={<SaaS />} />
           <Route path="/contact" element={<Contact />} />

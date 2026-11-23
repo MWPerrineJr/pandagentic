@@ -55,6 +55,7 @@ export const nav = [
   { label: "Experience", href: "/experience" },
   { label: "Projects", href: "/projects" },
   { label: "Dashboard", href: "/dashboard" },
+  { label: "RAG", href: "/rag" },
   { label: "Workflows", href: "/workflows" },
   { label: "SaaS", href: "/saas" },
   { label: "Contact", href: "/contact" },
@@ -74,6 +75,8 @@ export const links = {
   fraudDashboardSource: "https://github.com/MWPerrineJr/completed-projects/tree/main/FraudDetection",
   stockDashboard: "https://completed-projects-d4kxlppp8zwtqry6lpaa8h.streamlit.app/",
   stockDashboardSource: "https://github.com/MWPerrineJr/completed-projects/tree/main/StockAnalysis",
+  ragApp: "https://data-science-library.streamlit.app/",
+  ragSource: "https://github.com/MWPerrineJr/datascience-rag",
   standingChair: "https://thestandingchair.com/",
   standingChairDemo: "https://thestandingchair.com/demo",
 };
@@ -232,6 +235,58 @@ export const dashboards = [
 ] as const;
 
 export type ShowcaseDashboard = (typeof dashboards)[number];
+
+export const rag = {
+  title: "Data Science Docs Assistant",
+  kind: "Retrieval-augmented generation",
+  href: links.ragApp,
+  embedHref: `${links.ragApp}?embed=true`,
+  sourceHref: links.ragSource,
+  description:
+    "Ask a question about pandas, NumPy, SciPy, scikit-learn, matplotlib, or Plotly. The assistant searches 1,040 pages of reference docs, answers only from what it finds, and cites the library, section, and page. If the docs don't cover a question, it says so.",
+  libraries: ["pandas", "NumPy", "SciPy", "scikit-learn", "matplotlib", "Plotly"],
+  kpis: [
+    { label: "Reference pages indexed", value: "1,040" },
+    { label: "Right source in top 5", value: "100%" },
+    { label: "Out-of-scope questions refused", value: "15 / 15" },
+    { label: "Answers judged faithful", value: "97%" },
+  ],
+  pipeline: [
+    {
+      title: "Clean ingestion",
+      description:
+        "PyMuPDF extraction, chosen after pypdf glued 14,341 words together. Running headers become library, version, and section metadata, and stray font glyphs are mapped back to text.",
+    },
+    {
+      title: "Chunk and embed",
+      description:
+        "Page-level chunks, embedded with OpenAI text-embedding-3-large at 1,536 dimensions and stored in Supabase pgvector behind an HNSW index.",
+    },
+    {
+      title: "Retrieve",
+      description:
+        "The question is embedded and matched against the top 5 chunks, optionally filtered to a single library from the sidebar.",
+    },
+    {
+      title: "Two-layer refusal",
+      description:
+        "A similarity gate refuses weak matches before any LLM call, at no cost. Then the model must confirm the context actually answers the question before it writes a word.",
+    },
+    {
+      title: "Cited answers",
+      description:
+        "Structured output streams token by token. Citations are built in code from stored metadata, never written by the model, so a cited page always exists.",
+    },
+  ],
+  evaluation: [
+    { metric: "Hit rate @ 1", value: "0.842", note: "Correct section ranked first (57 answerable questions)" },
+    { metric: "Hit rate @ 5", value: "1.000", note: "Correct section always in the context window" },
+    { metric: "MRR", value: "0.899", note: "Page-level chunks beat section-level (0.873)" },
+    { metric: "Refusals", value: "15 / 15", note: "Gate and LLM layer together, with 0 false refusals" },
+    { metric: "Faithfulness", value: "0.970", note: "Blind LLM-as-judge, 3 runs, randomized A/B order" },
+  ],
+  stack: ["Python", "LangChain", "OpenAI", "Supabase pgvector", "Streamlit", "pytest"],
+} as const;
 
 export const workflows = [
   {
@@ -575,6 +630,14 @@ export const featuredProjects = [
       "Technicals and an inverse-volatility book on AAPL, MSFT, GOOGL, NVDA, and TSLA, plus a Monte Carlo stress test. Open the live app, or see the preview on the Dashboard tab.",
     href: links.stockDashboard,
     cta: "Open live dashboard",
+  },
+  {
+    title: "Data Science Docs Assistant",
+    kind: "RAG",
+    description:
+      "A cited, refuse-when-unsure assistant over the pandas, NumPy, SciPy, scikit-learn, matplotlib, and Plotly reference docs. Open the live app, or see the pipeline and evaluation on the RAG tab.",
+    href: links.ragApp,
+    cta: "Open live assistant",
   },
   {
     title: "The Standing Chair",
